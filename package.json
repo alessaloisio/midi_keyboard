@@ -1,0 +1,23 @@
+{
+  "name": "midi_keyboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alessaloisio/midi_keyboard.git"
+  },
+  "keywords": [
+    "midi",
+    "keyboard"
+  ],
+  "author": "Aloisio Alessandro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alessaloisio/midi_keyboard/issues"
+  },
+  "homepage": "https://github.com/alessaloisio/midi_keyboard#readme"
+}
