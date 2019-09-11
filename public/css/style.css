@@ -1,0 +1,56 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box; }
+
+body {
+  background: no-repeat url("../img/disco.jpg");
+  background-size: cover;
+  height: 100vh;
+  margin: 0; }
+
+header {
+  max-width: 300px;
+  margin: 0 auto;
+  max-height: 10vh; }
+  header .logo {
+    background-color: #333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    border-radius: 0 0 100% 100%;
+    align-content: center; }
+    header .logo h1 {
+      color: #fff;
+      padding: 5px;
+      font-family: Arial;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: -4px;
+      text-shadow: 1px 1px 0px black;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      background-clip: text; }
+
+.wrapper {
+  display: block;
+  height: 87vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+#pad {
+  background-color: #333;
+  width: 680px;
+  height: 680px;
+  border-radius: 10px;
+  border: 40px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 13px black;
+  position: relative; }
+  #pad .case {
+    position: absolute;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6) inset;
+    transition: box-shadow 0.3s linear;
+    cursor: pointer; }
+    #pad .case:hover, #pad .case.clicked {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3) inset; }
