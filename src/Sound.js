@@ -63,7 +63,6 @@ class Buffer {
 class SoundAPI {
   constructor() {
     this.context = new (window.AudioContext || window.webkitAudioContext)();
-    this.preset = 0;
     this.listenSounds = {};
     this.buffer = null;
     // SOUNDS FILES
