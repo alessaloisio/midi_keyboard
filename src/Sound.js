@@ -1,99 +1,107 @@
 "use strict";
 
 class Sound {
-  constructor() {}
-
-  static setup() {
-    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    let masterGainNode = null;
-
-    let volumeControl = 1; // slider ?
-    let wavePicker = "custom"; // choose (custom/square/sine..)
-    let customWaveform = null;
-
-    let sineTerms = null;
-    let cosineTerms = null;
-
-    let oscList = {};
-
-    sineTerms = new Float32Array([0, 0, 1, 0, 1]);
-    cosineTerms = new Float32Array(sineTerms.length);
-    customWaveform = audioContext.createPeriodicWave(cosineTerms, sineTerms);
-
-    masterGainNode = audioContext.createGain();
-    masterGainNode.connect(audioContext.destination);
-    masterGainNode.gain.value = volumeControl;
-
-    return {
-      audioContext: audioContext,
-      masterGainNode: masterGainNode,
-      customWaveform: customWaveform,
-      type: wavePicker,
-      oscList: oscList
-    };
+  constructor(context, buffer) {
+    this.context = context;
+    this.buffer = buffer;
   }
 
-  static notePressed(e, obj) {
-    let dataset = e.dataset;
-    if (!dataset["pressed"]) {
-      obj.oscList[dataset["frequency"]] = Sound.playTone(
-        dataset["frequency"],
-        obj
-      );
-      console.log(obj.oscList);
-      dataset["pressed"] = "yes";
-    }
+  setup() {
+    this.gainNode = this.context.createGain();
+    this.source = this.context.createBufferSource();
+    this.source.buffer = this.buffer;
+    this.source.connect(this.gainNode);
+    this.gainNode.connect(this.context.destination);
+
+    this.gainNode.gain.setValueAtTime(0.8, this.context.currentTime);
   }
 
-  static noteReleased(e, obj) {
-    let dataset = e.dataset;
-    if (dataset && dataset["pressed"]) {
-      obj.oscList[dataset["frequency"]].stop();
-      delete obj.oscList[dataset["frequency"]];
-      delete dataset["pressed"];
-    }
+  play() {
+    this.setup();
+    this.source.start(this.context.currentTime);
   }
 
-  static playTone(freq, obj) {
-    let osc = obj.audioContext.createOscillator();
-    osc.connect(obj.masterGainNode);
-
-    let type = obj.type;
-
-    if (type == "custom") {
-      osc.setPeriodicWave(obj.customWaveform);
-    } else {
-      osc.type = type;
-    }
-
-    osc.frequency.value = freq;
-    osc.start();
-
-    return osc;
-  }
-
-  static createNoteTable() {
-    let noteFreq = [];
-    let octave = 0;
-    let frequence = 50;
-
-    for (let i = 1; i < 26; i++) {
-      if (i % 7 === 0) {
-        frequence += 100;
-        octave++;
-      }
-      noteFreq.push([octave, frequence]);
-      frequence += 10;
-    }
-
-    return noteFreq;
-  }
-
-  static setData(target, note) {
-    target.dataset.octave = note[0];
-    target.dataset.frequency = note[1];
+  stop() {
+    var ct = this.context.currentTime + 0.5;
+    this.gainNode.gain.exponentialRampToValueAtTime(0.001, ct);
+    this.source.stop(ct);
   }
 }
 
-export default Sound;
+class Buffer {
+  constructor(context, urls) {
+    this.context = context;
+    this.urls = urls;
+    this.buffer = [];
+  }
+
+  loadSound(url, index) {
+    let request = new XMLHttpRequest();
+    request.open("get", url, true);
+    request.responseType = "arraybuffer";
+    let thisBuffer = this;
+    request.onload = function() {
+      // Safari doesn't support promise based syntax
+      thisBuffer.context.decodeAudioData(request.response, function(buffer) {
+        thisBuffer.buffer[index] = buffer;
+      });
+    };
+    request.send();
+  }
+
+  getBuffer() {
+    this.urls.forEach((url, index) => {
+      this.loadSound(url, index);
+    });
+  }
+
+  getSound(index) {
+    return this.buffer[index];
+  }
+}
+
+class SoundAPI {
+  constructor() {
+    this.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.preset = 0;
+    this.listenSounds = {};
+    this.buffer = null;
+    // SOUNDS FILES
+    this.sounds = [];
+    this.dest = "sounds/";
+    this.style = {
+      name: "guitar",
+      ext: "mp3"
+    };
+  }
+
+  getFilesSounds() {
+    // GENERATE PATHS
+    this.sounds = [];
+    for (let i = 1; i < 26; i++) {
+      let str = this.dest + this.style.name + "/";
+      str += i + "." + this.style.ext;
+      this.sounds.push(str);
+    }
+
+    // NEW BUFFER with sounds
+    this.buffer = new Buffer(this.context, this.sounds);
+    this.buffer.getBuffer();
+  }
+
+  play(id) {
+    if (!this.listenSounds[id]) {
+      this.listenSounds[id] = new Sound(this.context, this.buffer.getSound(id));
+      this.listenSounds[id].play();
+    }
+  }
+
+  stop(id) {
+    if (this.listenSounds[id]) {
+      this.listenSounds[id].stop();
+      delete this.listenSounds[id];
+    }
+  }
+}
+
+export { Sound, Buffer, SoundAPI };
