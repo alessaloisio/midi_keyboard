@@ -14,7 +14,7 @@ body {
 }
 
 header {
-  max-width: 300px;
+  max-width: 75vh;
   margin: 0 auto;
   max-height: 10vh;
 
@@ -25,6 +25,8 @@ header {
     justify-content: center;
     border-radius: 0 0 100% 100%;
     align-content: center;
+    margin: 0 auto;
+    max-width: 300px;
     h1 {
       color: #fff;
       padding: 5px;
@@ -37,6 +39,29 @@ header {
       -webkit-background-clip: text;
       -moz-background-clip: text;
       background-clip: text;
+    }
+  }
+
+  .settings {
+    display: flex;
+    justify-content: flex-end;
+    i {
+      color: #fff;
+      background-color: #333;
+      padding: 8px;
+      border-radius: 100%;
+      cursor: pointer;
+
+      &:before {
+        margin: 0px 1px 0px 0px;
+        font-weight: bold;
+        color: #fff;
+        font-size: 1.5rem;
+      }
+
+      &:hover {
+        background-color: #107abd;
+      }
     }
   }
 }
@@ -61,11 +86,11 @@ header {
   .case {
     position: absolute;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6) inset;
-    transition: box-shadow 0.3s linear;
+    transition: all 0.5s linear;
     cursor: pointer;
-    &:hover,
+
     &.clicked {
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3) inset;
+      box-shadow: 0 0 60px black inset;
     }
   }
 }

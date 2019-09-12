@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Midi Keyboard</title>
+
+    <link rel="stylesheet" href="fonts/flaticon.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <header>
       <div class="logo"><h1>Midi Keyboard</h1></div>
+      <div class="settings">
+        <i class="flaticon-settings"></i>
+        <div class="panel">
+          <ul id="panel"></ul>
+        </div>
+      </div>
     </header>
 
     <div class="wrapper">
       <div id="pad"></div>
     </div>
 
-    <script type="module" src="js/bundle.js"></script>
+    <script src="js/bundle.js"></script>
   </body>
 </html>

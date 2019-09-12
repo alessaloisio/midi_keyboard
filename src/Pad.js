@@ -21,7 +21,7 @@ class MidiKeyboard {
 
     let x = 0,
       y = 0,
-      count = 1;
+      count = 0;
 
     for (let i = 0; i < dimCase; i++) {
       x = 0;
@@ -39,8 +39,11 @@ class MidiKeyboard {
         span.style.top = `${y}px`;
 
         // Random Color
-        span.style.backgroundColor =
-          "#" + ((Math.random() * 0xffffff) << 0).toString(16);
+        span.dataset.bg = `rgba(${Math.floor(
+          Math.random() * 256
+        )}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
+          Math.random() * 256
+        )}, 0.8)`;
 
         this.target.appendChild(span);
 
@@ -54,7 +57,7 @@ class MidiKeyboard {
     const spans = this.target.childNodes;
 
     // > 65 < 90
-    const id = e.keyCode - 65 + 1;
+    const id = e.keyCode - 65;
     if (e.keyCode >= 65 && e.keyCode <= 89) {
       for (let i = 0; i < spans.length; i++) {
         const span = spans[i];
@@ -72,6 +75,7 @@ class MidiKeyboard {
       const span = this.keyUnionSpan(e);
       if (span) {
         span.classList.add("clicked");
+        span.style.backgroundColor = span.dataset.bg;
         this.sound.play(span.id);
       }
     });
@@ -80,6 +84,7 @@ class MidiKeyboard {
       const span = this.keyUnionSpan(e);
       if (span) {
         span.classList.remove("clicked");
+        span.style.backgroundColor = "transparent";
         this.sound.stop(span.id);
       }
     });

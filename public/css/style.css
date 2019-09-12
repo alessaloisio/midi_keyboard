@@ -10,7 +10,7 @@ body {
   margin: 0; }
 
 header {
-  max-width: 300px;
+  max-width: 75vh;
   margin: 0 auto;
   max-height: 10vh; }
   header .logo {
@@ -19,7 +19,9 @@ header {
     display: flex;
     justify-content: center;
     border-radius: 0 0 100% 100%;
-    align-content: center; }
+    align-content: center;
+    margin: 0 auto;
+    max-width: 300px; }
     header .logo h1 {
       color: #fff;
       padding: 5px;
@@ -31,6 +33,22 @@ header {
       -webkit-background-clip: text;
       -moz-background-clip: text;
       background-clip: text; }
+  header .settings {
+    display: flex;
+    justify-content: flex-end; }
+    header .settings i {
+      color: #fff;
+      background-color: #333;
+      padding: 8px;
+      border-radius: 100%;
+      cursor: pointer; }
+      header .settings i:before {
+        margin: 0px 1px 0px 0px;
+        font-weight: bold;
+        color: #fff;
+        font-size: 1.5rem; }
+      header .settings i:hover {
+        background-color: #107abd; }
 
 .wrapper {
   display: block;
@@ -50,7 +68,7 @@ header {
   #pad .case {
     position: absolute;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6) inset;
-    transition: box-shadow 0.3s linear;
+    transition: all 0.5s linear;
     cursor: pointer; }
-    #pad .case:hover, #pad .case.clicked {
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3) inset; }
+    #pad .case.clicked {
+      box-shadow: 0 0 60px black inset; }

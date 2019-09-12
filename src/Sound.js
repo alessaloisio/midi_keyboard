@@ -12,7 +12,6 @@ class Sound {
     this.source.buffer = this.buffer;
     this.source.connect(this.gainNode);
     this.gainNode.connect(this.context.destination);
-
     this.gainNode.gain.setValueAtTime(0.8, this.context.currentTime);
   }
 
