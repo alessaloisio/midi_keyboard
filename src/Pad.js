@@ -3,16 +3,20 @@
 import { SoundAPI } from "./Sound";
 
 class MidiKeyboard {
-  constructor(target) {
+  constructor(target, styles) {
     this.target = target;
 
     // INIT My Sound Lib
-    this.sound = new SoundAPI();
+    this.sound = new SoundAPI(styles);
     this.sound.getFilesSounds();
 
     // INIT PAD
     this.initGrid();
     this.initEvent();
+  }
+
+  changeStyle() {
+    this.sound.getFilesSounds();
   }
 
   initGrid() {

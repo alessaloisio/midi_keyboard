@@ -42,15 +42,23 @@ header {
     }
   }
 
-  .settings {
+  .btn-settings {
     display: flex;
     justify-content: flex-end;
-    i {
+    z-index: 2;
+    position: relative;
+
+    .icon-setting {
       color: #fff;
       background-color: #333;
       padding: 8px;
-      border-radius: 100%;
+      border-radius: 20px;
       cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      transition: background-color 1s linear;
+      overflow: hidden;
 
       &:before {
         margin: 0px 1px 0px 0px;
@@ -61,6 +69,53 @@ header {
 
       &:hover {
         background-color: #107abd;
+        transition: background-color 0.1s linear;
+
+        .panel {
+          max-height: 25vh;
+          max-width: 150px;
+          margin: 45px 15px 10px 15px;
+          overflow: hidden;
+          padding-right: 20px;
+
+          ul {
+            opacity: 1;
+            transition: opacity 0.3s linear 0.4s;
+          }
+        }
+      }
+    }
+
+    .panel {
+      max-width: 0;
+      max-height: 0;
+      transition: all 0.4s linear;
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        transition: opacity 0.1s linear;
+        display: flex;
+        flex-direction: column;
+
+        li {
+          font-family: Arial;
+          font-size: 14px;
+          font-style: normal;
+          margin-bottom: 10px;
+          transition: color 0.3s linear;
+
+          &:hover {
+            color: #14d0ff;
+          }
+        }
+
+        i:before {
+          margin: 0 15px 0 0;
+          padding: 0;
+        }
       }
     }
   }
@@ -72,6 +127,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 #pad {

@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 11/09/2019 14:46
+    Creation date: 12/09/2019 08:58
     */
 
     @font-face {
@@ -40,7 +40,11 @@
     .flaticon-boy:before { content: "\f100"; }
 .flaticon-classic-guitar:before { content: "\f101"; }
 .flaticon-settings:before { content: "\f102"; }
+.flaticon-electric-guitar:before { content: "\f103"; }
+.flaticon-piano:before { content: "\f104"; }
     
     $font-Flaticon-boy: "\f100";
     $font-Flaticon-classic-guitar: "\f101";
     $font-Flaticon-settings: "\f102";
+    $font-Flaticon-electric-guitar: "\f103";
+    $font-Flaticon-piano: "\f104";

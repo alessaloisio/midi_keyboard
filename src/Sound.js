@@ -60,25 +60,26 @@ class Buffer {
 }
 
 class SoundAPI {
-  constructor() {
+  constructor(styles) {
+    this.styles = styles;
+
     this.context = new (window.AudioContext || window.webkitAudioContext)();
     this.listenSounds = {};
     this.buffer = null;
     // SOUNDS FILES
     this.sounds = [];
     this.dest = "sounds/";
-    this.style = {
-      name: "guitar",
-      ext: "mp3"
-    };
   }
 
   getFilesSounds() {
     // GENERATE PATHS
     this.sounds = [];
+
+    const style = localStorage.getItem("style");
+
     for (let i = 1; i < 26; i++) {
-      let str = this.dest + this.style.name + "/";
-      str += i + "." + this.style.ext;
+      let str = this.dest + style + "/";
+      str += i + "." + this.styles.local[style].ext;
       this.sounds.push(str);
     }
 

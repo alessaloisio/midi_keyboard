@@ -33,29 +33,71 @@ header {
       -webkit-background-clip: text;
       -moz-background-clip: text;
       background-clip: text; }
-  header .settings {
+  header .btn-settings {
     display: flex;
-    justify-content: flex-end; }
-    header .settings i {
+    justify-content: flex-end;
+    z-index: 2;
+    position: relative; }
+    header .btn-settings .icon-setting {
       color: #fff;
       background-color: #333;
       padding: 8px;
-      border-radius: 100%;
-      cursor: pointer; }
-      header .settings i:before {
+      border-radius: 20px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      transition: background-color 1s linear;
+      overflow: hidden; }
+      header .btn-settings .icon-setting:before {
         margin: 0px 1px 0px 0px;
         font-weight: bold;
         color: #fff;
         font-size: 1.5rem; }
-      header .settings i:hover {
-        background-color: #107abd; }
+      header .btn-settings .icon-setting:hover {
+        background-color: #107abd;
+        transition: background-color 0.1s linear; }
+        header .btn-settings .icon-setting:hover .panel {
+          max-height: 25vh;
+          max-width: 150px;
+          margin: 45px 15px 10px 15px;
+          overflow: hidden;
+          padding-right: 20px; }
+          header .btn-settings .icon-setting:hover .panel ul {
+            opacity: 1;
+            transition: opacity 0.3s linear 0.4s; }
+    header .btn-settings .panel {
+      max-width: 0;
+      max-height: 0;
+      transition: all 0.4s linear; }
+      header .btn-settings .panel ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        transition: opacity 0.1s linear;
+        display: flex;
+        flex-direction: column; }
+        header .btn-settings .panel ul li {
+          font-family: Arial;
+          font-size: 14px;
+          font-style: normal;
+          margin-bottom: 10px;
+          transition: color 0.3s linear; }
+          header .btn-settings .panel ul li:hover {
+            color: #14d0ff; }
+        header .btn-settings .panel ul i:before {
+          margin: 0 15px 0 0;
+          padding: 0; }
 
 .wrapper {
   display: block;
   height: 87vh;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  position: relative;
+  z-index: 1; }
 
 #pad {
   background-color: #333;
