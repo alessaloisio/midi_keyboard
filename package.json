@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp watch",
+    "dev": "gulp watch",
     "scss": "node-sass -w src/scss -o public/css",
     "start": "node server.js"
   },
