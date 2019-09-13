@@ -46,11 +46,11 @@ for (const style in styles.local) {
 
 // CREATE PAD
 const pad = new Pad(document.getElementById("pad"), styles);
-console.log(pad);
+// console.log(pad);
 
 // MANAGE CLICK
 const handlerSettings = e => {
-  console.log(e.target.id);
+  // console.log(e.target.id);
   // localStorage edit
   localStorage.setItem("style", e.target.id);
   pad.changeStyle();

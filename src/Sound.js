@@ -10,9 +10,10 @@ class Sound {
     this.gainNode = this.context.createGain();
     this.source = this.context.createBufferSource();
     this.source.buffer = this.buffer;
+    this.source.loop = true;
     this.source.connect(this.gainNode);
     this.gainNode.connect(this.context.destination);
-    this.gainNode.gain.setValueAtTime(0.8, this.context.currentTime);
+    // this.gainNode.gain.setValueAtTime(0.8, this.context.currentTime);
   }
 
   play() {

@@ -51,6 +51,9 @@ class MidiKeyboard {
 
         this.target.appendChild(span);
 
+        // ADD EVENT LISTENER
+        span.addEventListener("click", e => (this.handlerCase(e), false));
+
         x += dimCaseOnGrid;
       }
       y += dimCaseOnGrid;
@@ -75,23 +78,38 @@ class MidiKeyboard {
   }
 
   initEvent() {
-    document.addEventListener("keydown", e => {
-      const span = this.keyUnionSpan(e);
-      if (span) {
-        span.classList.add("clicked");
-        span.style.backgroundColor = span.dataset.bg;
-        this.sound.play(span.id);
-      }
-    });
+    document.addEventListener(
+      "keydown",
+      e => (this.keyDown(this.keyUnionSpan(e)), false)
+    );
+    document.addEventListener(
+      "keyup",
+      e => (this.keyUp(this.keyUnionSpan(e)), false)
+    );
+  }
 
-    document.addEventListener("keyup", e => {
-      const span = this.keyUnionSpan(e);
-      if (span) {
-        span.classList.remove("clicked");
-        span.style.backgroundColor = "transparent";
-        this.sound.stop(span.id);
-      }
-    });
+  keyDown(span) {
+    if (span) {
+      span.classList.add("clicked");
+      span.style.backgroundColor = span.dataset.bg;
+      this.sound.play(span.id);
+    }
+  }
+
+  keyUp(span) {
+    if (span && !span.classList.contains("lock")) {
+      span.classList.remove("clicked");
+      span.style.backgroundColor = "transparent";
+      this.sound.stop(span.id);
+    }
+  }
+
+  handlerCase(e) {
+    const span = e.target;
+    if (span.classList.contains("clicked")) {
+      span.classList.toggle("lock");
+      this.keyUp(span);
+    }
   }
 }
 
